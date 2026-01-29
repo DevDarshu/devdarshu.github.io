@@ -103,6 +103,35 @@
                 background-position: 50px 50px;
             }
         }
+
+        /* Virtual Pet Styles */
+        #pet {
+            position: fixed;
+            width: 40px;
+            height: 40px;
+            font-size: 30px;
+            pointer-events: none;
+            /* Ignore clicks so it doesn't block UI */
+            z-index: 1000;
+            transition: transform 0.1s ease-out;
+            animation: float 2s ease-in-out infinite;
+            filter: drop-shadow(0 0 10px var(--primary-color));
+            left: 0;
+            top: 0;
+            will-change: transform;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
     </style>
 </head>
 
@@ -115,8 +144,17 @@
         <!-- Header -->
         <header class="text-center my-10 fade-in">
             <h1 id="title" class="orbitron text-3xl md:text-5xl lg:text-6xl text-gradient font-bold mb-2"></h1>
-            <p id="subtitle" class="orbitron text-sm md:text-lg text-gray-400 opacity-0">Angular Developer | JavaScript
+            <p id="subtitle" class="orbitron text-sm md:text-lg text-gray-400 opacity-0 mb-6">Angular Developer |
+                JavaScript
                 | TypeScript | React & Node.js Enthusiast</p>
+
+            <!-- Resume Download Button -->
+            <div id="resume-btn" class="opacity-0 transition-opacity duration-1000 delay-1000">
+                <a href="resume.pdf" download
+                    class="orbitron inline-flex items-center px-6 py-3 rounded-full bg-gradient-to-r from-blue-600 to-teal-400 text-white font-bold tracking-wider shadow-lg hover:shadow-cyan-500/50 transform hover:-translate-y-1 transition-all duration-300 text-sm md:text-base">
+                    <i class="fas fa-file-download mr-2"></i> Download Resume
+                </a>
+            </div>
         </header>
 
         <!-- About Section -->
@@ -185,6 +223,94 @@
             </div>
         </section>
 
+        <!-- Work Experience Section -->
+        <section
+            class="bg-slate-900 bg-opacity-70 backdrop-blur-sm rounded-3xl p-6 md:p-10 mb-8 border border-slate-700 shadow-lg fade-in">
+            <h2 class="orbitron text-xl md:text-3xl text-gradient font-bold mb-4">
+                <i class="fas fa-briefcase mr-2 text-primary-color"></i> Work Experience
+            </h2>
+            <div class="mb-6 relative border-l border-gray-700 ml-3 pl-8 pb-2">
+                <!-- Timeline Dot -->
+                <span
+                    class="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-primary-color border-4 border-slate-900"></span>
+
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-2">
+                    <h3 class="text-lg md:text-xl font-bold text-white">Front-End Developer</h3>
+                    <span
+                        class="text-xs md:text-sm text-secondary-color bg-secondary-color bg-opacity-10 px-3 py-1 rounded-full border border-secondary-color border-opacity-20 mt-2 md:mt-0">Feb
+                        2022 - Present</span>
+                </div>
+                <h4 class="text-secondary-color font-semibold mb-4 text-sm md:text-base">Tata Consultancy Services</h4>
+                <ul class="list-disc list-outside text-gray-300 space-y-2 text-sm md:text-base ml-4">
+                    <li>Developed and maintained enterprise-scale Angular applications using TypeScript and Angular
+                        Material, improving user satisfaction scores by 30%.</li>
+                    <li>Built reusable UI components and SCSS theme libraries, reducing feature development time by 40%.
+                    </li>
+                    <li>Improved app performance via lazy loading, RxJS optimization, and efficient change detection
+                        strategies.</li>
+                    <li>Implemented NgRx-based state management for complex admin features, such as Role-Based Access
+                        Control (RBAC).</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Education & Certifications Section -->
+        <section
+            class="bg-slate-900 bg-opacity-70 backdrop-blur-sm rounded-3xl p-6 md:p-10 mb-8 border border-slate-700 shadow-lg fade-in">
+            <h2 class="orbitron text-xl md:text-3xl text-gradient font-bold mb-4">
+                <i class="fas fa-graduation-cap mr-2 text-primary-color"></i> Education & Certifications
+            </h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Education -->
+                <div>
+                    <h3 class="font-semibold text-secondary-color mb-4 text-lg border-b border-gray-700 pb-2">Education
+                    </h3>
+                    <div
+                        class="bg-slate-800 rounded-xl p-5 border border-slate-700 hover:border-primary-color transition-colors duration-300">
+                        <div class="flex items-start justify-between">
+                            <div>
+                                <p class="font-bold text-white text-base md:text-lg">BE in Mechanical Engineering</p>
+                                <p class="text-gray-400 text-sm mt-1">Visvesvaraya Technological University</p>
+                            </div>
+                            <i class="fas fa-university text-gray-600 text-2xl"></i>
+                        </div>
+                        <div class="mt-4 flex flex-wrap gap-2">
+                            <span class="text-xs text-gray-400 bg-slate-900 px-2 py-1 rounded">Jun 2018 - Aug
+                                2021</span>
+                            <span class="text-xs text-primary-color bg-slate-900 px-2 py-1 rounded font-bold">7.7
+                                CGPA</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Certifications -->
+                <div>
+                    <h3 class="font-semibold text-secondary-color mb-4 text-lg border-b border-gray-700 pb-2">
+                        Certifications</h3>
+                    <ul class="space-y-3">
+                        <li
+                            class="bg-slate-800 rounded-xl p-4 border border-slate-700 flex items-center hover:border-primary-color transition-colors duration-300">
+                            <div
+                                class="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center mr-4 flex-shrink-0 text-yellow-500">
+                                <i class="fas fa-certificate"></i>
+                            </div>
+                            <span class="text-gray-300 text-sm font-medium">Full Stack MEAN Development | Udemy</span>
+                        </li>
+                        <li
+                            class="bg-slate-800 rounded-xl p-4 border border-slate-700 flex items-center hover:border-primary-color transition-colors duration-300">
+                            <div
+                                class="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center mr-4 flex-shrink-0 text-yellow-500">
+                                <i class="fas fa-certificate"></i>
+                            </div>
+                            <span class="text-gray-300 text-sm font-medium">Full Stack Developer Training | J-spiders
+                                (2021)</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
         <!-- Projects Section -->
         <section
             class="bg-slate-900 bg-opacity-70 backdrop-blur-sm rounded-3xl p-6 md:p-10 mb-8 border border-slate-700 shadow-lg fade-in">
@@ -193,7 +319,7 @@
             </h2>
 
             <p class="text-gray-300 text-sm md:text-base leading-relaxed mb-4">
-                Currently cooking some amazing projects! Stay tuned for updates. 🚀
+                Currently cooking some amazing projects! Stay tuned for updates.
             </p>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -203,7 +329,7 @@
                     class="bg-slate-800 rounded-xl p-6 border border-slate-700 flex flex-col items-center justify-center text-gray-400 hover:border-primary-color transition-colors duration-300">
                     <i class="fas fa-tshirt text-4xl mb-2 text-secondary-color"></i>
                     <p>T-shirt Store</p>
-                    <a href="https://rainbow-cannoli-5c4418.netlify.app/" target="_blank"
+                    <a href="https://rokostore.netlify.app/" target="_blank"
                         class="mt-2 px-3 py-1 bg-primary-color text-blue-500 rounded hover:bg-secondary-color transition-colors duration-300">
                         View Live
                     </a>
@@ -258,6 +384,20 @@
         <p>Darshan K N &copy; 2025 | All Rights Reserved</p>
     </footer>
 
+    <!-- Music Player -->
+    <div class="fixed bottom-4 right-4 z-50 fade-in">
+        <audio id="bg-music" loop>
+            <source src="music.mp3" type="audio/mpeg">
+        </audio>
+        <button id="music-toggle"
+            class="w-12 h-12 md:w-14 md:h-14 rounded-full bg-slate-900 border border-secondary-color text-secondary-color shadow-[0_0_15px_rgba(46,100,229,0.5)] flex items-center justify-center hover:bg-slate-800 transition-all duration-300">
+            <i class="fas fa-music text-lg md:text-xl"></i>
+        </button>
+    </div>
+
+    <!-- Virtual Pet -->
+    <div id="pet">🤖</div>
+
     <!-- Typing Effect -->
     <script>
         document.addEventListener("DOMContentLoaded", () => {
@@ -280,7 +420,59 @@
 
             typeSentence("Darshan K N", titleEle).then(() => {
                 subtitleEle.style.opacity = 1;
+                document.getElementById('resume-btn').style.opacity = 1;
             });
+
+            // Music Player Logic
+            const music = document.getElementById('bg-music');
+            const musicBtn = document.getElementById('music-toggle');
+            const icon = musicBtn.querySelector('i');
+            let isPlaying = false;
+
+            // Set low volume
+            music.volume = 0.3;
+
+            musicBtn.addEventListener('click', () => {
+                if (isPlaying) {
+                    music.pause();
+                    icon.classList.remove('fa-compact-disc', 'fa-spin');
+                    icon.classList.add('fa-music');
+                    musicBtn.classList.remove('animate-pulse');
+                } else {
+                    music.play().then(() => {
+                        icon.classList.remove('fa-music');
+                        icon.classList.add('fa-compact-disc', 'fa-spin');
+                        musicBtn.classList.add('animate-pulse');
+                    }).catch(err => {
+                        console.log("Audio play failed (user interaction required):", err);
+                        alert("Play failed: Interaction required or file missing.");
+                    });
+                }
+                isPlaying = !isPlaying;
+            });
+
+            // Virtual Pet Logic
+            const pet = document.getElementById('pet');
+            let mouseX = 0, mouseY = 0;
+            let petX = 0, petY = 0;
+
+            document.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+            });
+
+            function animatePet() {
+                // Smooth delay
+                const speed = 0.1;
+                petX += (mouseX - petX) * speed;
+                petY += (mouseY - petY) * speed;
+
+                pet.style.left = (petX + 20) + 'px'; // Offset to sit next to cursor
+                pet.style.top = (petY + 20) + 'px';
+
+                requestAnimationFrame(animatePet);
+            }
+            animatePet();
         });
     </script>
 
