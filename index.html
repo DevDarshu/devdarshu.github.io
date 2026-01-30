@@ -113,12 +113,13 @@
             pointer-events: none;
             /* Ignore clicks so it doesn't block UI */
             z-index: 1000;
-            transition: transform 0.1s ease-out;
+            transition: transform 0.1s ease-out, left 0.3s ease-out, top 0.3s ease-out;
+            /* Smooth docking transition */
             animation: float 2s ease-in-out infinite;
             filter: drop-shadow(0 0 10px var(--primary-color));
             left: 0;
             top: 0;
-            will-change: transform;
+            will-change: transform, left, top;
         }
 
         @keyframes float {
@@ -150,7 +151,7 @@
 
             <!-- Resume Download Button -->
             <div id="resume-btn" class="opacity-0 transition-opacity duration-1000 delay-1000">
-                <a href="resume.pdf" download
+                <a href="Darshan K N Resume.pdf" download
                     class="orbitron inline-flex items-center px-6 py-3 rounded-full bg-gradient-to-r from-blue-600 to-teal-400 text-white font-bold tracking-wider shadow-lg hover:shadow-cyan-500/50 transform hover:-translate-y-1 transition-all duration-300 text-sm md:text-base">
                     <i class="fas fa-file-download mr-2"></i> Download Resume
                 </a>
@@ -435,13 +436,12 @@
             musicBtn.addEventListener('click', () => {
                 if (isPlaying) {
                     music.pause();
-                    icon.classList.remove('fa-compact-disc', 'fa-spin');
-                    icon.classList.add('fa-music');
+                    icon.className = 'fas fa-music text-lg md:text-xl';
+                    icon.classList.remove('fa-spin');
                     musicBtn.classList.remove('animate-pulse');
                 } else {
                     music.play().then(() => {
-                        icon.classList.remove('fa-music');
-                        icon.classList.add('fa-compact-disc', 'fa-spin');
+                        icon.className = 'fas fa-compact-disc text-lg md:text-xl fa-spin';
                         musicBtn.classList.add('animate-pulse');
                     }).catch(err => {
                         console.log("Audio play failed (user interaction required):", err);
@@ -451,24 +451,49 @@
                 isPlaying = !isPlaying;
             });
 
-            // Virtual Pet Logic
+            // Smart Robot Logic 🤖
             const pet = document.getElementById('pet');
             let mouseX = 0, mouseY = 0;
             let petX = 0, petY = 0;
+            let idleTime = 0;
+            let isIdle = false;
 
+            // Track mouse movement
             document.addEventListener('mousemove', (e) => {
                 mouseX = e.clientX;
                 mouseY = e.clientY;
+                idleTime = 0; // Reset idle timer
+                isIdle = false;
             });
 
-            function animatePet() {
-                // Smooth delay
-                const speed = 0.1;
-                petX += (mouseX - petX) * speed;
-                petY += (mouseY - petY) * speed;
+            // Idle Check Timer
+            setInterval(() => {
+                idleTime++;
+                if (idleTime > 2) { // 2 seconds of inactivity
+                    isIdle = true;
+                }
+            }, 1000);
 
-                pet.style.left = (petX + 20) + 'px'; // Offset to sit next to cursor
-                pet.style.top = (petY + 20) + 'px';
+            function animatePet() {
+                if (!isIdle) {
+                    // Follow Cursor
+                    const speed = 0.08;
+                    petX += (mouseX - petX) * speed;
+                    petY += (mouseY - petY) * speed;
+                } else {
+                    // Return to Music Button (Docking Mode)
+                    const btnRect = musicBtn.getBoundingClientRect();
+                    // Target position: slightly above the music button
+                    const targetX = btnRect.left + (btnRect.width / 2) - 20; // Center horizontally
+                    const targetY = btnRect.top - 50; // Sit above button
+
+                    const speed = 0.05; // Move slower when docking
+                    petX += (targetX - petX) * speed;
+                    petY += (targetY - petY) * speed;
+                }
+
+                pet.style.left = petX + 'px';
+                pet.style.top = petY + 'px';
 
                 requestAnimationFrame(animatePet);
             }
